@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AccessibleLocomotionWebXR</title>
+    <meta name="description" content="AccessibleLocomotionWebXR • A-Frame">
+    
+    <!-- A-Frame 0.8.2 -->
+    <!-- `preload="auto"` needs to be removed from audio if using this version -->
+    <!-- <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script> -->
+    
+    <!-- A-Frame master -->
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@826e983d989312fe7cd75b9cc92e58b7a5cc195f/dist/aframe-master.min.js"></script>
+    
+    <!-- A-Frame Extras -->
+    <script src="https://unpkg.com/aframe-extras@4.2.0/dist/aframe-extras.min.js"></script>
+    
+    <!-- Recast Plugin -->
+    <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script> -->
+    
+  </head>
+  
+  <body>
+    
+    <a-scene stats="true" background="color: #ECECEC" renderer="gammaOutput: true; antialias: true;" light="defaultLightsEnabled: true;">
+      
+      <!-- Assets --> 
+      <a-assets timeout="30000"> 
+
+        <a-asset-item id="room" src="assets/bunker_textured.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="navmesh" src="assets/bunker_navmesh.gltf"></a-asset-item>         
+
+      </a-assets>
+      
+      <!-- Camera Rig -->
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2;" position="0 0 0">
+        <!-- Camera -->
+        <a-entity camera="far: 100;" position="0 1.6 0">
+          
+          <a-cursor></a-cursor>
+
+          <a-entity position="0 0 -3">
+            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="0.35 0 0"></a-ring>
+            <a-circle radius="0.195" position="0.35 0 0" color="red">
+            </a-circle>
+
+            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="-0.35 0 0"></a-ring>
+            <a-circle radius="0.195" position="-0.35 0 0" color="green">
+            </a-circle>
+
+            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="0 0.35 0"></a-ring>
+            <a-circle radius="0.195" position="0 0.35 0" color="blue">
+            </a-circle>
+
+            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="0 -0.35 0"></a-ring>
+            <a-circle radius="0.195" position="0 -0.35 0" color="yellow">
+            </a-circle>
+            
+          </a-entity>
+
+        </a-entity>
+ 
+      </a-entity>
+      
+      <!-- room and Nav-mesh -->
+
+      <a-entity gltf-model="#room"></a-entity>
+      <a-entity gltf-model="#navmesh" nav-mesh visible="false">
+      
+    </a-scene>
+  </body>
+</html>

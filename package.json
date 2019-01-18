@@ -1,0 +1,20 @@
+{
+  "name": "AccessibleLocomotionWebXR",
+  "description": "AccessibleLocomotionWebXR",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "budo --live --verbose --port 3000 --open",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "budo": "^11.5.0",
+    "gh-pages": "2.0.1",
+    "ghpages": "0.0.10"
+  },
+  "keywords": [
+    "aframe",
+    "webvr",
+    "vr"
+  ]
+}
