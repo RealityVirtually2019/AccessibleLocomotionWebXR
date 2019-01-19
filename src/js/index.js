@@ -6,6 +6,7 @@ if (typeof AFRAME === 'undefined') {
   );
 }
 
+
 // long click mechanics
 const node = document.getElementById('trigger');
 // state
@@ -77,7 +78,8 @@ node.addEventListener('touchend', cancel);
 node.addEventListener('touchleave', cancel);
 node.addEventListener('touchcancel', cancel);
 
-// sets attribute focussed=“true” for a-entity
+
+// sets attribute infocus=“true” for a-entity[locomotion_btn]
 function setFocussedToEntity(value = true) {
   const entities = document.querySelectorAll('a-entity');
   Array.from(entities)
@@ -86,3 +88,76 @@ function setFocussedToEntity(value = true) {
 }
 
 setFocussedToEntity();
+
+//create custom events
+
+
+//dom ready
+(function () {
+
+window.fwdDashButtonAction = function() {
+    console.log("forward dash");
+}
+window.backDashButtonAction = function() {
+    console.log("back dash");
+}
+window.leftTurnButtonAction = function() {
+    console.log("left turn");
+}
+window.rightTurnButtonAction = function() {
+    console.log("right turn");
+}
+
+
+
+    function switchNavBtn(){
+      var buttons = document.querySelectorAll('[locobtn]');
+      let iterator = 0;
+      for (let i = 0; i < buttons.length; i++) {
+        if(buttons[i].getAttribute('infocus') == 'true'|| buttons[i].getAttribute('infocus')){
+          console.log(i)
+          iterator = i + 1;
+        }
+      }
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute('infocus', false);
+      }
+      if (iterator >= buttons.length) {
+        iterator = 0;
+      }
+      buttons[iterator].setAttribute('infocus', true);
+    }
+      
+    function triggerNavBtn(){
+      var buttons = document.querySelectorAll('[locobtn]');
+      var event = new Event('click');
+      for (let i = 0; i < buttons.length; i++) {
+        if(buttons[i].getAttribute('infocus') == 'true'|| buttons[i].getAttribute('infocus')){
+          buttons[i].dispatchEvent(event);
+        }
+      }
+    }
+
+
+
+//imitating triggers
+
+      
+document.onkeydown = function(e) {
+  switch (e.keyCode) {
+    case 76:  //triggerB (l)
+      console.log('triggerB');
+      switchNavBtn();
+      break;
+    case 80: //triggerA (p)
+      console.log('triggerA');
+      triggerNavBtn();
+      break;
+    case 79: //triggerC (o)
+      console.log('triggerC');
+      break;
+  }
+};
+
+
+})();
