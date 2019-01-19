@@ -13,7 +13,7 @@ let longPress = false;
 let veryLongPress = false;
 // limit
 const longPressTime = 1000;
-const veryLongPressTime = 1500;
+const veryLongPressTime = 2000;
 // let longtarget = null;
 let pressTimer = null;
 let startTime = null;
@@ -32,11 +32,11 @@ const cancel = () => {
     // check very long click
     if (elapsedTime >= veryLongPressTime) {
       veryLongPress = true;
-      console.log('very long click');
+      console.log('very long click = triggerC');
     }
     // check long click
     else if (elapsedTime >= longPressTime) {
-      console.log('long click');
+      console.log('long click = triggerB');
       longPress = true;
     }
   }
@@ -51,7 +51,7 @@ const click = () => {
     return;
   }
 
-  console.log('simple click');
+  console.log('simple click = triggerA');
 };
 
 const start = e => {

@@ -16,7 +16,7 @@ const isWatch = process.env.WATCH === 'true';
 
 const paths = {
   scripts: {
-    entry: 'src/js/index.js',
+    entry: ['src/js/index.js', 'src/js/components.js'],
     dest: 'build/js/',
   },
 };

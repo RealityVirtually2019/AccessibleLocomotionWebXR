@@ -20,7 +20,6 @@
     <!-- Recast Plugin -->
     <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script> -->
     <!-- <script src="js/components.js"></script> -->
-
   </head>
   
   <body>
@@ -40,19 +39,19 @@
       
 
       <!-- Camera Rig -->
-      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2;" position="0 0 0">
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2;" position="0 0 0" binary-controls >
       
 
         <!-- Camera -->
         <a-entity camera="far: 100;" look-controls position="0 1.2 0">
 
 
-          <!-- triggermode start -->
+          <!-- interaction mode start -->
 
-          <a-entity geometry="primitive:cylinder; height:0.005; radius:1.02;openEnded:true;" material="opacity:0.5; color:white; side:back" rotation="0 0 0"
-          animation__rotation="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 0 360"
+          <a-entity id="axes" geometry="primitive:cylinder; height:0.005; radius:1.02;openEnded:true;" material="opacity:0.5; color:white; side:back" rotation="0 0 0"
+          animatio__rotation="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 0 360"
           >
-            <a-entity rotation="0 0 0"
+            <a-entity id="swing" rotation="0 0 0"
             animation__yoyo="property: rotation; dur: 10000; dir: alternate; easing: linear; loop: true; from: 0 0 0; to: 0 50 0;"
             >
 
@@ -66,19 +65,19 @@
 
           </a-entity>
           
-          <!-- triggermode end -->
+          <!-- interaction mode end -->
 
 
-          <!-- locomotionmode start -->
-          <a-entity position="0 0 -2">
+          <!-- locomotion mode start -->
+          <a-entity id="locomotion_nav" position="0 0 -2">
 
-            <a-entity focussed="true" position="0 0.5 0" rotation="0 0 0" locobtn="clickAction:fwdDashButtonAction"></a-entity>
-            <a-entity focussed="false" position="0 -0.5 0" rotation="0 0 180" locobtn="clickAction:backDashButtonAction"></a-entity>
-            <a-entity focussed="false" position="-0.5 0 0"  rotation="0 0 90"locobtn="clickAction:leftTurnButtonAction"></a-entity>
-            <a-entity focussed="false" position="0.5 0 0"  rotation="0 0 -90" locobtn="clickAction:rightTurnButtonAction"></a-entity>
+            <a-entity infocus="true" position="0 0.5 0" rotation="0 0 0" locobtn="clickAction:fwdDashButtonAction"></a-entity>
+            <a-entity infocus="false" position="0 -0.5 0" rotation="0 0 180" locobtn="clickAction:backDashButtonAction"></a-entity>
+            <a-entity infocus="false" position="-0.5 0 0"  rotation="0 0 90"locobtn="clickAction:leftTurnButtonAction"></a-entity>
+            <a-entity infocus="false" position="0.5 0 0"  rotation="0 0 -90" locobtn="clickAction:rightTurnButtonAction"></a-entity>
             
           </a-entity>
-          <!-- locomotionmode end -->
+          <!-- locomotion mode end -->
 
         </a-entity>
  

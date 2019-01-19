@@ -74,7 +74,7 @@ AFRAME.registerComponent('switch-furniture', {
 
 
 // Component to change to a sequential color on click.
-AFRAME.registerComponent('focussed', {
+AFRAME.registerComponent('infocus', {
     schema:{
         type:'boolean'
     }

@@ -3,28 +3,44 @@ if (typeof AFRAME === 'undefined') {
   throw new Error('Component attempted to register before AFRAME was available.');
 }
 
+AFRAME.registerComponent('binary-controls', {
+    schema: {
+        emitter:{type: 'string', default: 'triggerA'},
+        selecter:{type: 'string', default: 'triggerB'},
+        switcher:{type: 'string', default: 'triggerC'},
+        locomotion: {type: 'boolean', default: true},
+        interaction: {type: 'boolean', default: true},
+    },
+    init: function() {
+
+
+
+
+
+        // document.getElementById('axes').object3D.el.setAttribute('animation__rotation', 'property: rotation; dur: 10000; easing: linear; loop: true; to: 0 0 360');
+        // document.getElementById('axes').object3D.el.removeAttribute('animation__rotation');
+
+
+
+
+    }
+});
+
+
 // Loco button component
 AFRAME.registerComponent('locobtn', {
     multiple: true,
     schema: {
         on: {default: 'click'},
         clickAction: {type: 'string'},
-        borderColor: {type: 'string', default: '#f00'},
-        borderInner: {type: 'number', default:0.16},
-        borderOuter: {type: 'number', default:0.17}
+        radius: {type: 'number', default:0.16},
     },
     init: function() {
         var data = this.data;
         var el = this.el;
 
-        // var rEntity = document.createElement("a-entity");
-        // rEntity.setAttribute('geometry', `primitive:ring; radiusInner:${data.borderInner}; radiusOuter:${data.borderOuter}`);
-        // rEntity.setAttribute('material', `shader: flat; opacity:1; color:${data.borderColor};`);
-        // rEntity.setAttribute('position', '0 0 0');
-        // el.appendChild(rEntity);
-
         var bEntity = document.createElement("a-entity");
-        bEntity.setAttribute('geometry', `primitive: circle; radius:${data.borderInner - 0.01};`);
+        bEntity.setAttribute('geometry', `primitive: circle; radius:${data.radius - 0.01};`);
         bEntity.setAttribute('material', `shader: flat; color:#000;opacity:0.5;`);
         bEntity.setAttribute('position', '0 0 0');
         el.appendChild(bEntity);
@@ -38,7 +54,7 @@ AFRAME.registerComponent('locobtn', {
         this.icon = icon;
 
         var hoverEntity = document.createElement("a-entity");
-        hoverEntity.setAttribute('geometry', `primitive: plane; height: ${data.borderOuter * 2 + 0.02}; width: ${data.borderOuter * 2 + 0.02};`);
+        hoverEntity.setAttribute('geometry', `primitive: plane; height: ${data.radius * 2 + 0.02}; width: ${data.radius * 2 + 0.02};`);
         hoverEntity.setAttribute('material', `shader: flat; transparent: true; opacity: 0; color:#fff;`);
         hoverEntity.setAttribute('position', '0 0 0.01');
         el.appendChild(hoverEntity);
@@ -74,15 +90,16 @@ AFRAME.registerComponent('switch-furniture', {
 
 
 // Component to change to a sequential color on click.
-AFRAME.registerComponent('focussed', {
+AFRAME.registerComponent('infocus', {
     schema:{
         type:'boolean'
-    }
+    },
     init: function () {
         var data = this.data;
         var el = this.el;
         var rEntity = document.createElement("a-entity");
         rEntity.setAttribute('geometry', `primitive:ring; radiusInner:0.16; radiusOuter:0.17`);
+        rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
         rEntity.setAttribute('position', '0 0 0');
         el.appendChild(rEntity);
         this.rEntity = rEntity;
