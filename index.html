@@ -7,16 +7,18 @@
     
     <!-- A-Frame 0.8.2 -->
     <!-- `preload="auto"` needs to be removed from audio if using this version -->
-    <!-- <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script> -->
+    <!----> <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script> 
     
-    <!-- A-Frame master -->
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@826e983d989312fe7cd75b9cc92e58b7a5cc195f/dist/aframe-master.min.js"></script>
+    <!-- A-Frame master 
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@826e983d989312fe7cd75b9cc92e58b7a5cc195f/dist/aframe-master.min.js"></script>-->
     
     <!-- A-Frame Extras -->
     <script src="https://unpkg.com/aframe-extras@4.2.0/dist/aframe-extras.min.js"></script>
     
     <!-- Recast Plugin -->
     <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script> -->
+    <script src="js/components.js"></script>
+
   </head>
   
   <body>
@@ -52,16 +54,16 @@
       </a-entity>
       
 
-      <a-entity class="clickable" cursor-listener geometry="primitive: box" material="color: blue"></a-entity>
 
+      <a-entity position="-2.3 0.5 -4.5" switch-furniture material="color:red"></a-entity>
 
       <!-- locomotionmode start -->
-      <a-entity position="0 1.2 -3">
+      <a-entity position="0 1.2 -2">
 
-        <a-entity position="0.5 0 0" btn="clickAction:fwdDashButtonAction"></a-entity>
-        <a-entity position="-0.5 0 0" btn="clickAction:backDashButtonAction"></a-entity>
-        <a-entity position="0 -0.5 0" btn="clickAction:leftTurnButtonAction"></a-entity>
-        <a-entity position="0 0.5 0" btn="clickAction:rightTurnButtonAction"></a-entity>
+        <a-entity position="0 0.5 0" rotation="0 0 0" locobtn="clickAction:fwdDashButtonAction"></a-entity>
+        <a-entity position="0 -0.5 0" rotation="0 0 180" locobtn="clickAction:backDashButtonAction"></a-entity>
+        <a-entity position="-0.5 0 0"  rotation="0 0 90"locobtn="clickAction:leftTurnButtonAction"></a-entity>
+        <a-entity position="0.5 0 0"  rotation="0 0 -90" locobtn="clickAction:rightTurnButtonAction"></a-entity>
         
       </a-entity>
       <!-- locomotionmode end -->
