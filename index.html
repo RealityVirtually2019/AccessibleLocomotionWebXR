@@ -17,56 +17,82 @@
     
     <!-- Recast Plugin -->
     <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script> -->
-    
   </head>
   
   <body>
     
-    <a-scene stats="true" background="color: #ECECEC" renderer="gammaOutput: true; antialias: true;" light="defaultLightsEnabled: true;">
+    <a href="#" id="trigger" style="position:absolute; top:0; left:0; z-index:10;">trigger</a>
+
+    <a-scene stats="false" background="color: #ECECEC" renderer="gammaOutput: true; antialias: true;" light="defaultLightsEnabled: true;">
       
       <!-- Assets --> 
       <a-assets timeout="30000"> 
 
-        <a-asset-item id="room" src="assets/bunker_textured.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="navmesh" src="assets/bunker_navmesh.gltf"></a-asset-item>         
+        <a-asset-item id="room" src="assets/Apt-Walls.gltf" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="floor" src="assets/Apt-Floor.gltf" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="navmesh" src="assets/NavMesh.gltf"></a-asset-item>         
 
       </a-assets>
       
+
       <!-- Camera Rig -->
       <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2;" position="0 0 0">
+      
+
         <!-- Camera -->
-        <a-entity camera="far: 100;" position="0 1.6 0">
-          
-          <a-cursor></a-cursor>
-
-          <a-entity position="0 0 -3">
-            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="0.35 0 0"></a-ring>
-            <a-circle radius="0.195" position="0.35 0 0" color="red">
-            </a-circle>
-
-            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="-0.35 0 0"></a-ring>
-            <a-circle radius="0.195" position="-0.35 0 0" color="green">
-            </a-circle>
-
-            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="0 0.35 0"></a-ring>
-            <a-circle radius="0.195" position="0 0.35 0" color="blue">
-            </a-circle>
-
-            <a-ring radius-inner="0.2" radius-outer="0.22" color="white" position="0 -0.35 0"></a-ring>
-            <a-circle radius="0.195" position="0 -0.35 0" color="yellow">
-            </a-circle>
-            
+        <a-entity camera="far: 100;" look-controls position="0 1.2 0">
+          <a-entity cursor raycaster="far: 20; interval: 1000;"
+            position="0 0 -1.05"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: black; shader: flat">
           </a-entity>
 
         </a-entity>
  
       </a-entity>
       
+
+      <a-entity class="clickable" cursor-listener geometry="primitive: box" material="color: blue"></a-entity>
+
+
+      <!-- locomotionmode start -->
+      <a-entity position="0 1.2 -3">
+
+        <a-entity position="0.5 0 0" btn="clickAction:fwdDashButtonAction"></a-entity>
+        <a-entity position="-0.5 0 0" btn="clickAction:backDashButtonAction"></a-entity>
+        <a-entity position="0 -0.5 0" btn="clickAction:leftTurnButtonAction"></a-entity>
+        <a-entity position="0 0.5 0" btn="clickAction:rightTurnButtonAction"></a-entity>
+        
+      </a-entity>
+      <!-- locomotionmode end -->
+
+
       <!-- room and Nav-mesh -->
 
-      <a-entity gltf-model="#room"></a-entity>
-      <a-entity gltf-model="#navmesh" nav-mesh visible="false">
+      <a-entity gltf-model="#room" position="4.5 0 -6.5"></a-entity>
+      <a-entity gltf-model="#floor" position="4.5 0 -6.5"></a-entity>
+      <a-entity gltf-model="#navmesh" nav-mesh visible="false" position="4.5 0 -6.5">
       
     </a-scene>
+    <script src="js/script.js"></script>
+
+    <script type="text/javascript">
+    (function () {
+    
+      window.fwdDashButtonAction = function() {
+        console.log("forward dash");
+      }
+      window.backDashButtonAction = function() {
+        console.log("back dash");
+      }
+      window.leftTurnButtonAction = function() {
+        console.log("left turn");
+      }
+      window.rightTurnButtonAction = function() {
+        console.log("right turn");
+      }
+
+    })();
+    </script>
   </body>
 </html>
