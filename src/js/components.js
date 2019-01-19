@@ -13,12 +13,49 @@ AFRAME.registerComponent('binary-controls', {
     },
     init: function() {
 
+        var data = this.data;
+        var el = this.el;
 
+
+        this.cameraEl = document.querySelector('a-entity[camera]');
+
+        if(this.cameraEl){
+
+            // interaction mode
+            var interactionAxes = document.createElement("a-entity");
+            interactionAxes.setAttribute('geometry', `primitive:cylinder; height:0.005; radius:1.02;openEnded:true;`);
+            interactionAxes.setAttribute('material', `shader: flat; opacity:0.5; color:white; side:back`);
+            interactionAxes.setAttribute('rotation', '0 0 0');
+            interactionAxes.setAttribute('visible', 'true');
+            this.cameraEl.appendChild(interactionAxes);
+            this.interactionAxes = interactionAxes;
+
+            var interactionSwing = document.createElement("a-entity");
+            interactionSwing.setAttribute('rotation', '0 0 0');
+            interactionAxes.appendChild(interactionSwing);
+            this.interactionSwing = interactionSwing;
+
+            var interactionCursor = document.createElement("a-entity");
+            interactionCursor.setAttribute('cursor', '');
+            interactionCursor.setAttribute('raycaster', 'far: 20; interval: 1000;');
+            interactionCursor.setAttribute('geometry', 'primitive: ring; radiusInner: 0.02; radiusOuter: 0.03');
+            interactionCursor.setAttribute('position', '0 0 -1.05');
+            interactionCursor.setAttribute('material', 'color: black; shader: flat');
+            interactionSwing.appendChild(interactionCursor);
+
+            // locomotion mode
+
+
+        }else{
+            console.log("Please add a camera to your scene.");
+        }
 
 
 
         // document.getElementById('axes').object3D.el.setAttribute('animation__rotation', 'property: rotation; dur: 10000; easing: linear; loop: true; to: 0 0 360');
         // document.getElementById('axes').object3D.el.removeAttribute('animation__rotation');
+
+        // animation__yoyo="property: rotation; dur: 10000; dir: alternate; easing: linear; loop: true; from: 0 0 0; to: 0 50 0;"
 
 
 

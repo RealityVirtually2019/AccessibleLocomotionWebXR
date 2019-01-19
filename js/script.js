@@ -56,4 +56,37 @@ node.addEventListener("touchleave", cancel);
 node.addEventListener("touchcancel", cancel);
 /**/
 
+
+(function () {
+
+window.fwdDashButtonAction = function() {
+    console.log("forward dash");
+}
+window.backDashButtonAction = function() {
+    console.log("back dash");
+}
+window.leftTurnButtonAction = function() {
+    console.log("left turn");
+}
+window.rightTurnButtonAction = function() {
+    console.log("right turn");
+}
+
+
+})();
+
+
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 76:  //triggerB (l)
+            console.log('triggerB');
+            break;
+        case 80: //triggerA (p)
+            console.log('triggerA');
+            break;
+        case 79: //triggerC (o)
+            console.log('triggerC');
+            break;
+    }
+};
   

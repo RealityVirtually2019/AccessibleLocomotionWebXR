@@ -6,6 +6,7 @@ if (typeof AFRAME === 'undefined') {
   );
 }
 
+
 // long click mechanics
 const node = document.getElementById('trigger');
 // state
@@ -77,7 +78,8 @@ node.addEventListener('touchend', cancel);
 node.addEventListener('touchleave', cancel);
 node.addEventListener('touchcancel', cancel);
 
-// sets attribute focussed=“true” for a-entity
+
+// sets attribute infocus=“true” for a-entity[locomotion_btn]
 function setFocussedToEntity(value = true) {
   const entities = document.querySelectorAll('a-entity');
   Array.from(entities)
@@ -86,3 +88,42 @@ function setFocussedToEntity(value = true) {
 }
 
 setFocussedToEntity();
+
+//create custom events
+
+
+//dom ready
+(function () {
+
+window.fwdDashButtonAction = function() {
+    console.log("forward dash");
+}
+window.backDashButtonAction = function() {
+    console.log("back dash");
+}
+window.leftTurnButtonAction = function() {
+    console.log("left turn");
+}
+window.rightTurnButtonAction = function() {
+    console.log("right turn");
+}
+
+
+
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 76:  //triggerB (l)
+            console.log('triggerB');
+            break;
+        case 80: //triggerA (p)
+            console.log('triggerA');
+            break;
+        case 79: //triggerC (o)
+            console.log('triggerC');
+            break;
+    }
+};
+
+
+
+})();
