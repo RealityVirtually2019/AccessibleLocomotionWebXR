@@ -17,11 +17,11 @@ AFRAME.registerComponent('locobtn', {
         var data = this.data;
         var el = this.el;
 
-        var rEntity = document.createElement("a-entity");
-        rEntity.setAttribute('geometry', `primitive:ring; radiusInner:${data.borderInner}; radiusOuter:${data.borderOuter}`);
-        rEntity.setAttribute('material', `shader: flat; opacity:1; color:${data.borderColor};`);
-        rEntity.setAttribute('position', '0 0 0');
-        el.appendChild(rEntity);
+        // var rEntity = document.createElement("a-entity");
+        // rEntity.setAttribute('geometry', `primitive:ring; radiusInner:${data.borderInner}; radiusOuter:${data.borderOuter}`);
+        // rEntity.setAttribute('material', `shader: flat; opacity:1; color:${data.borderColor};`);
+        // rEntity.setAttribute('position', '0 0 0');
+        // el.appendChild(rEntity);
 
         var bEntity = document.createElement("a-entity");
         bEntity.setAttribute('geometry', `primitive: circle; radius:${data.borderInner - 0.01};`);
@@ -70,3 +70,61 @@ AFRAME.registerComponent('switch-furniture', {
     });
   }
 });
+
+
+
+// Component to change to a sequential color on click.
+AFRAME.registerComponent('focussed', {
+    schema:{
+        type:'boolean'
+    }
+    init: function () {
+        var data = this.data;
+        var el = this.el;
+        var rEntity = document.createElement("a-entity");
+        rEntity.setAttribute('geometry', `primitive:ring; radiusInner:0.16; radiusOuter:0.17`);
+        rEntity.setAttribute('position', '0 0 0');
+        el.appendChild(rEntity);
+        this.rEntity = rEntity;
+
+        if(data){
+            rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
+        }else{
+            rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
+        }
+
+        el.addEventListener('stateadded', function (evt) {
+          if (evt.detail.state === 'selected') {
+            rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
+          }
+        });
+                
+        el.addEventListener('stateremoved', function (evt) {
+          if (evt.detail.state === 'selected') {
+            rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
+          }
+        });
+
+    },
+    update: function () {
+        if(this.data){
+            this.el.addState('selected');
+//            this.rEntity.setAttribute('material.opacity','1');
+
+        }else{
+            this.el.removeState('selected');
+//            this.rEntity.setAttribute('material.opacity','0');
+
+        }
+    }
+});
+
+
+
+// entity.addState('selected');
+// entity.is('selected');  // >> true
+
+// entity.removeState('selected');
+// entity.is('selected');  // >> false
+
+
