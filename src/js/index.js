@@ -110,20 +110,54 @@ window.rightTurnButtonAction = function() {
 
 
 
-document.onkeydown = function(e) {
-    switch (e.keyCode) {
-        case 76:  //triggerB (l)
-            console.log('triggerB');
-            break;
-        case 80: //triggerA (p)
-            console.log('triggerA');
-            break;
-        case 79: //triggerC (o)
-            console.log('triggerC');
-            break;
+    function switchNavBtn(){
+      var buttons = document.querySelectorAll('[locobtn]');
+      let iterator = 0;
+      for (let i = 0; i < buttons.length; i++) {
+        if(buttons[i].getAttribute('infocus') == 'true'|| buttons[i].getAttribute('infocus')){
+          console.log(i)
+          iterator = i + 1;
+        }
+      }
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute('infocus', false);
+      }
+      if (iterator >= buttons.length) {
+        iterator = 0;
+      }
+      buttons[iterator].setAttribute('infocus', true);
     }
-};
+      
+    function triggerNavBtn(){
+      var buttons = document.querySelectorAll('[locobtn]');
+      var event = new Event('click');
+      for (let i = 0; i < buttons.length; i++) {
+        if(buttons[i].getAttribute('infocus') == 'true'|| buttons[i].getAttribute('infocus')){
+          buttons[i].dispatchEvent(event);
+        }
+      }
+    }
 
+
+
+//imitating triggers
+
+      
+document.onkeydown = function(e) {
+  switch (e.keyCode) {
+    case 76:  //triggerB (l)
+      console.log('triggerB');
+      switchNavBtn();
+      break;
+    case 80: //triggerA (p)
+      console.log('triggerA');
+      triggerNavBtn();
+      break;
+    case 79: //triggerC (o)
+      console.log('triggerC');
+      break;
+  }
+};
 
 
 })();

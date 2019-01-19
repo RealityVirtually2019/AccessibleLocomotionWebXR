@@ -46,21 +46,29 @@ AFRAME.registerComponent('binary-controls', {
             // locomotion mode
 
 
+
+
         }else{
             console.log("Please add a camera to your scene.");
         }
 
-
-
+        window.addEventListener(this.data.emitter, this.emitterHandler.bind(this));
+        window.addEventListener(this.data.selecter, this.selecterHandler.bind(this));
+        window.addEventListener(this.data.switcher, this.switcherHandler.bind(this));            
         // document.getElementById('axes').object3D.el.setAttribute('animation__rotation', 'property: rotation; dur: 10000; easing: linear; loop: true; to: 0 0 360');
         // document.getElementById('axes').object3D.el.removeAttribute('animation__rotation');
 
         // animation__yoyo="property: rotation; dur: 10000; dir: alternate; easing: linear; loop: true; from: 0 0 0; to: 0 50 0;"
-
-
-
-
+    }, 
+    emitterHandler: function(evt) {
+        //document.querySelector('a-scene').emit('click');
+    }, 
+    selecterHandler: function(evt) {
+    }, 
+    switcherHandler: function(evt) {
     }
+
+
 });
 
 
@@ -128,15 +136,15 @@ AFRAME.registerComponent('switch-furniture', {
 
 // Component to change to a sequential color on click.
 AFRAME.registerComponent('infocus', {
-    schema:{
-        type:'boolean'
+    schema: { 
+        default:"false"
     },
     init: function () {
         var data = this.data;
         var el = this.el;
         var rEntity = document.createElement("a-entity");
         rEntity.setAttribute('geometry', `primitive:ring; radiusInner:0.16; radiusOuter:0.17`);
-        rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
+        rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
         rEntity.setAttribute('position', '0 0 0');
         el.appendChild(rEntity);
         this.rEntity = rEntity;
@@ -147,32 +155,15 @@ AFRAME.registerComponent('infocus', {
             rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
         }
 
-        el.addEventListener('stateadded', function (evt) {
-          if (evt.detail.state === 'selected') {
-            rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
-          }
-        });
-                
-        el.addEventListener('stateremoved', function (evt) {
-          if (evt.detail.state === 'selected') {
-            rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
-          }
-        });
-
     },
     update: function () {
         if(this.data){
-            this.el.addState('selected');
-//            this.rEntity.setAttribute('material.opacity','1');
-
+            this.rEntity.setAttribute('material','opacity','1');
         }else{
-            this.el.removeState('selected');
-//            this.rEntity.setAttribute('material.opacity','0');
-
+            this.rEntity.setAttribute('material','opacity','0');
         }
     }
 });
-
 
 
 // entity.addState('selected');
@@ -180,5 +171,3 @@ AFRAME.registerComponent('infocus', {
 
 // entity.removeState('selected');
 // entity.is('selected');  // >> false
-
-
