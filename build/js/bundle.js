@@ -240,7 +240,7 @@ AFRAME.registerComponent('dash-controls', {
     this.direction = 0;
   }
 });
-AFRAME.registerComponent('trackpadclick-controls', {
+AFRAME.registerComponent('trackpad-listener', {
   schema: {},
   init: function init() {
     console.log('testing trackpad!!!!'); //var GAMEPAD_ID_PREFIX = 'HTC Vive Focus';
@@ -329,13 +329,14 @@ if (typeof AFRAME === 'undefined') {
 } // long click mechanics
 
 
-var node = document.getElementById('trigger'); // state
+var node = document.getElementById('trigger');
+var contoller = document.getElementById('controller'); // state
 
 var longPress = false;
 var veryLongPress = false; // limit
 
-var longPressTime = 1000;
-var veryLongPressTime = 2000; // let longtarget = null;
+var longPressTime = 500;
+var veryLongPressTime = 1500; // let longtarget = null;
 
 var pressTimer = null;
 var startTime = null;
@@ -352,9 +353,11 @@ var cancel = function cancel() {
     if (elapsedTime >= veryLongPressTime) {
       veryLongPress = true;
       console.log('very long click = triggerC');
+      triggerC();
     } // check long click
     else if (elapsedTime >= longPressTime) {
         console.log('long click = triggerB');
+        triggerB();
         longPress = true;
       }
   }
@@ -370,11 +373,11 @@ var click = function click() {
   }
 
   console.log('simple click = triggerA');
+  triggerA();
 };
 
 var start = function start(e) {
   console.log(e);
-  alert(e);
 
   if (e.type === 'click' && e.button !== 0) {
     return;
@@ -394,12 +397,11 @@ node.addEventListener('click', click);
 node.addEventListener('mouseout', cancel);
 node.addEventListener('touchend', cancel);
 node.addEventListener('touchleave', cancel);
-node.addEventListener('touchcancel', cancel); //dom ready
+node.addEventListener('touchcancel', cancel);
+contoller.addEventListener('touchstart', start);
+contoller.addEventListener('touchend', cancel); //dom ready
 
 (function () {
-  // var sceneEl = document.querySelector('a-scene');
-  // sceneEl.addEventListener('trackpaddown', click);
-  // sceneEl.addEventListener('trackpadup', cancel);
   var yRot = 0;
   var rig = document.querySelector('[binary-controls]');
 
@@ -505,7 +507,7 @@ node.addEventListener('touchcancel', cancel); //dom ready
     }
   }
 
-  function triggerA() {
+  window.triggerA = function () {
     console.log('triggerB');
 
     if (menu.getAttribute('binary-controls').locofirst) {
@@ -513,9 +515,9 @@ node.addEventListener('touchcancel', cancel); //dom ready
     } else {
       triggerCursor();
     }
-  }
+  };
 
-  function triggerB() {
+  window.triggerB = function () {
     console.log('triggerB');
 
     if (menu.getAttribute('binary-controls').locofirst) {
@@ -523,11 +525,11 @@ node.addEventListener('touchcancel', cancel); //dom ready
     } else {
       switchCursorDirection();
     }
-  }
+  };
 
-  function triggerC() {
+  window.triggerC = function () {
     toggleMenu();
-  } //imitating triggers
+  }; //imitating triggers
 
 
   document.onkeydown = function (e) {

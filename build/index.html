@@ -35,12 +35,12 @@
       
 
       <!-- Camera Rig -->
-      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2; controls:['dash','trackpadclick']; " position="0 0 0" binary-controls="locomotion:true;interaction:true;locofirst:true;" >
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2; controls:dash; " position="0 0 0" binary-controls="locomotion:true;interaction:true;locofirst:true;" >
       
         <!-- Camera -->
         <a-entity camera="far: 100;" look-controls position="0 1.2 0"></a-entity>
-<!--         <a-entity trackpad-listener tracked-controls="controller:0; idPrefix:HTC Vive Focus"></a-entity>
- -->        <a-entity gltf-model="#chair" position="0 0.7 0" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
+        <a-entity id="controller" trackpad-listener tracked-controls="controller:0; idPrefix:Gear VR|GearVR|Oculus Go"></a-entity>
+        <a-entity gltf-model="#chair" position="0 0.7 0" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
 
  
       </a-entity>

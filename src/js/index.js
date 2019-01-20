@@ -9,12 +9,14 @@ if (typeof AFRAME === 'undefined') {
 
 // long click mechanics
 const node = document.getElementById('trigger');
+const contoller = document.getElementById('controller');
+
 // state
 let longPress = false;
 let veryLongPress = false;
 // limit
-const longPressTime = 1000;
-const veryLongPressTime = 2000;
+const longPressTime = 500;
+const veryLongPressTime = 1500;
 // let longtarget = null;
 let pressTimer = null;
 let startTime = null;
@@ -34,10 +36,12 @@ const cancel = () => {
     if (elapsedTime >= veryLongPressTime) {
       veryLongPress = true;
       console.log('very long click = triggerC');
+      triggerC();
     }
     // check long click
     else if (elapsedTime >= longPressTime) {
       console.log('long click = triggerB');
+      triggerB();
       longPress = true;
     }
   }
@@ -52,12 +56,13 @@ const click = () => {
     return;
   }
 
-  console.log('simple click = triggerA');
+  console.log('simple click = triggerA')
+  triggerA();
+
 };
 
 const start = e => {
   console.log(e);
-  alert(e);
   if (e.type === 'click' && e.button !== 0) {
     return;
   }
@@ -79,14 +84,11 @@ node.addEventListener('touchend', cancel);
 node.addEventListener('touchleave', cancel);
 node.addEventListener('touchcancel', cancel);
 
+contoller.addEventListener('touchstart', start);
+contoller.addEventListener('touchend', cancel);
 
 //dom ready
 (function () {
-
-// var sceneEl = document.querySelector('a-scene');
-// sceneEl.addEventListener('trackpaddown', click);
-// sceneEl.addEventListener('trackpadup', cancel);
-
 
   var yRot = 0;
   var rig = document.querySelector('[binary-controls]');
@@ -183,7 +185,7 @@ node.addEventListener('touchcancel', cancel);
     }
   }
 
-  function triggerA(){
+  window.triggerA = function(){
     console.log('triggerB');
     if(menu.getAttribute('binary-controls').locofirst){
       triggerNavBtn();
@@ -191,7 +193,7 @@ node.addEventListener('touchcancel', cancel);
       triggerCursor();
     }
   }
-  function triggerB(){
+  window.triggerB = function(){
     console.log('triggerB');
     if(menu.getAttribute('binary-controls').locofirst){
       switchNavBtn();
@@ -199,7 +201,7 @@ node.addEventListener('touchcancel', cancel);
       switchCursorDirection();
     }
   }
-  function triggerC(){
+  window.triggerC = function(){
     toggleMenu();
   }
 

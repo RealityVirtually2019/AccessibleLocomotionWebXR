@@ -230,7 +230,7 @@ AFRAME.registerComponent('dash-controls', {
 
 });
 
-AFRAME.registerComponent('trackpadclick-controls', {
+AFRAME.registerComponent('trackpad-listener', {
     schema: {
     },
     init: function() {
