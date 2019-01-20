@@ -1,0 +1,47 @@
+ROOM1
+
+	Patersons Dinning Table
+	$298.99
+
+	Royal Palm Beach Chair
+	$101.99
+
+	Charlton End Table
+	125.99
+
+	(Bed is not from Wayfair)
+
+=========================================
+
+ROOM2
+
+	Isabel Barrel Chair 
+	$140.99
+
+	Lansley Street Tucson Sofa
+	$227.99
+
+	Ivy Bronx Glass Coffee Table
+	$179.99
+
+=========================================
+
+ROOM3
+
+	(Bed is not from Wayfair)
+
+	Charlton End Table
+	$125.99
+
+=========================================
+
+LIVING ROOM
+
+	Langley Street Martinique Tufted Sofa
+	$829.99
+
+	(Optional)
+	Patersons Dinning Table
+	$298.99
+
+
