@@ -163,12 +163,6 @@ AFRAME.registerComponent('locobtn', {
         bEntity.appendChild(icon);
         this.icon = icon;
 
-        var hoverEntity = document.createElement("a-entity");
-        hoverEntity.setAttribute('geometry', `primitive: plane; height: ${data.radius * 2 + 0.02}; width: ${data.radius * 2 + 0.02};`);
-        hoverEntity.setAttribute('material', `shader: flat; transparent: true; opacity: 0; color:#fff;`);
-        hoverEntity.setAttribute('position', '0 0 0.01');
-        el.appendChild(hoverEntity);
-
         el.addEventListener(data.on, function() {
             var clickActionFunctionName = data.clickAction;
             console.log("in button, clickActionFunctionName: "+clickActionFunctionName);
@@ -197,9 +191,9 @@ AFRAME.registerComponent('infocus', {
     },
     update: function () {
         if(this.data){
-            this.rEntity.setAttribute('material','opacity','1');
+            this.rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
         }else{
-            this.rEntity.setAttribute('material','opacity','0');
+            this.rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
         }
     }
 });
