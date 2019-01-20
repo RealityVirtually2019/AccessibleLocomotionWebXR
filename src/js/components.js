@@ -230,6 +230,56 @@ AFRAME.registerComponent('dash-controls', {
 
 });
 
+AFRAME.registerComponent('lookatlabel', {
+  init: function () {
+    this.vector = new THREE.Vector3();
+  },
+
+  tick: function (t) {
+    var self = this;
+    var target = self.el.sceneEl.camera;
+    var object3D = self.el.object3D;
+
+    // make sure camera is set
+    if (target) { 
+         target.updateMatrixWorld();
+         this.vector.setFromMatrixPosition(target.matrixWorld);
+         if (object3D.parent) {
+           object3D.parent.updateMatrixWorld();
+           object3D.parent.worldToLocal(this.vector);
+         }
+         return object3D.lookAt(new THREE.Vector3(this.vector.x, object3D.position.y, this.vector.z));
+    }
+  }
+});
+
+AFRAME.registerComponent('label-furniture', {
+    schema: { 
+        type:'string', 
+        default:'name'
+    },
+    init: function () {
+    var el = this.el;
+    el.setAttribute('material', `shader: flat; opacity:0; color:blue;`);
+    var label = document.createElement("a-entity");
+    label.setAttribute('geometry', 'primitive:plane; width:1; height:0.4;');
+    label.setAttribute('text', `value:${this.data}; align:center; font:https://cdn.aframe.io/fonts/Aileron-Semibold.fnt; color:#fbfbfb;width:0.5;wrapCount:10;`);
+    label.setAttribute('material', `color:#111; opacity:1;`);
+    label.setAttribute('position', '0 0.8 0');
+    label.setAttribute('scale', '0.0001 0.0001 0.0001');
+    label.setAttribute('lookatlabel','');
+    el.appendChild(label);
+    this.label = label;
+    el.addEventListener('mouseenter', function () {
+      el.setAttribute('material', 'opacity', '0.2');
+      label.setAttribute('scale', '1 1 1');
+    });
+    el.addEventListener('mouseleave', function () {
+      el.setAttribute('material', 'opacity', '0');
+      label.setAttribute('scale', '0.0001 0.0001 0.0001');
+    });      
+  }
+});
 
 // Component to change to a sequential color on click.
 AFRAME.registerComponent('switch-furniture', {
