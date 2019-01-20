@@ -11,6 +11,7 @@ ROOM1
 
 	(Bed is not from Wayfair)
 
+note: the side table is the Charlton the big one is Patersons
 =========================================
 
 ROOM2
@@ -18,7 +19,7 @@ ROOM2
 	Isabel Barrel Chair 
 	$140.99
 
-	Lansley Street Tucson Sofa
+	Langley Street Tucson Sofa
 	$227.99
 
 	Ivy Bronx Glass Coffee Table
