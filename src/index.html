@@ -35,27 +35,10 @@
       
 
       <!-- Camera Rig -->
-      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2;" position="0 0 0" binary-controls >
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2; controls:dash; " position="0 0 0" binary-controls="locomotion:true;interaction:true;locofirst:false;" >
       
-
         <!-- Camera -->
-        <a-entity camera="far: 100;" look-controls position="0 1.2 0">
-
-
-
-
-          <!-- locomotion mode start -->
-          <a-entity id="locomotion_nav" position="0 0 -2">
-
-            <a-entity infocus="true" position="0 0.5 0" rotation="0 0 0" locobtn="clickAction:fwdDashButtonAction"></a-entity>
-            <a-entity infocus="false" position="0 -0.5 0" rotation="0 0 180" locobtn="clickAction:backDashButtonAction"></a-entity>
-            <a-entity infocus="false" position="-0.5 0 0"  rotation="0 0 90"locobtn="clickAction:leftTurnButtonAction"></a-entity>
-            <a-entity infocus="false" position="0.5 0 0"  rotation="0 0 -90" locobtn="clickAction:rightTurnButtonAction"></a-entity>
-            
-          </a-entity>
-          <!-- locomotion mode end -->
-
-        </a-entity>
+        <a-entity camera="far: 100;" look-controls position="0 1.2 0"></a-entity>
  
       </a-entity>
       

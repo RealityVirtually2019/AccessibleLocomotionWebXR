@@ -10,43 +10,87 @@ AFRAME.registerComponent('binary-controls', {
         switcher:{type: 'string', default: 'triggerC'},
         locomotion: {type: 'boolean', default: true},
         interaction: {type: 'boolean', default: true},
+        locofirst: {type: 'boolean', default:true}
     },
     init: function() {
-
         var data = this.data;
         var el = this.el;
-
-
         this.cameraEl = document.querySelector('a-entity[camera]');
 
         if(this.cameraEl){
 
             // interaction mode
-            var interactionAxes = document.createElement("a-entity");
-            interactionAxes.setAttribute('geometry', `primitive:cylinder; height:0.005; radius:1.02;openEnded:true;`);
-            interactionAxes.setAttribute('material', `shader: flat; opacity:0.5; color:white; side:back`);
-            interactionAxes.setAttribute('rotation', '0 0 0');
-            interactionAxes.setAttribute('visible', 'true');
-            this.cameraEl.appendChild(interactionAxes);
-            this.interactionAxes = interactionAxes;
+            if(data.interaction){
+                var interactionAxes = document.createElement("a-entity");
+                interactionAxes.setAttribute('geometry', `primitive:cylinder; height:0.005; radius:1.02;openEnded:true;`);
+                interactionAxes.setAttribute('material', `shader: flat; opacity:0.5; color:white; side:back`);
+                interactionAxes.setAttribute('rotation', '0 0 0');
+                interactionAxes.setAttribute('id', 'twist');
+                this.cameraEl.appendChild(interactionAxes);
+                this.interactionAxes = interactionAxes;
 
-            var interactionSwing = document.createElement("a-entity");
-            interactionSwing.setAttribute('rotation', '0 0 0');
-            interactionAxes.appendChild(interactionSwing);
-            this.interactionSwing = interactionSwing;
+                var interactionSwing = document.createElement("a-entity");
+                interactionSwing.setAttribute('rotation', '0 0 0');
+                interactionSwing.setAttribute('id', 'swing');
+                interactionAxes.appendChild(interactionSwing);
+                this.interactionSwing = interactionSwing;
 
-            var interactionCursor = document.createElement("a-entity");
-            interactionCursor.setAttribute('cursor', '');
-            interactionCursor.setAttribute('raycaster', 'far: 20; interval: 1000;');
-            interactionCursor.setAttribute('geometry', 'primitive: ring; radiusInner: 0.02; radiusOuter: 0.03');
-            interactionCursor.setAttribute('position', '0 0 -1.05');
-            interactionCursor.setAttribute('material', 'color: black; shader: flat');
-            interactionSwing.appendChild(interactionCursor);
-
+                var interactionCursor = document.createElement("a-entity");
+                interactionCursor.setAttribute('cursor', '');
+                interactionCursor.setAttribute('raycaster', 'far: 20; interval: 1000;');
+                interactionCursor.setAttribute('geometry', 'primitive: ring; radiusInner: 0.02; radiusOuter: 0.03');
+                interactionCursor.setAttribute('position', '0 0 -1.05');
+                interactionCursor.setAttribute('material', 'color: black; shader: flat');
+                interactionSwing.appendChild(interactionCursor);
+            }
             // locomotion mode
+            if(data.locomotion){
+                var locomotionNav = document.createElement("a-entity");
+                locomotionNav.setAttribute('position', '0 0 -2');
+                this.cameraEl.appendChild(locomotionNav);
+                this.locomotionNav = locomotionNav;
 
+                var fwd = document.createElement("a-entity");
+                fwd.setAttribute('infocus', 'true');
+                fwd.setAttribute('position', '0 0.5 0');
+                fwd.setAttribute('rotation', '0 0 0');
+                fwd.setAttribute('locobtn', 'clickAction:fwdDashButtonAction');
+                locomotionNav.appendChild(fwd);
+                var rt = document.createElement("a-entity");
+                rt.setAttribute('infocus', 'true');
+                rt.setAttribute('position', '0.5 0 0');
+                rt.setAttribute('rotation', '0 0 -90');
+                rt.setAttribute('locobtn', 'clickAction:rightTurnButtonAction');
+                locomotionNav.appendChild(rt);
+                var bwd = document.createElement("a-entity");
+                bwd.setAttribute('infocus', 'true');
+                bwd.setAttribute('position', '0 -0.5 0');
+                bwd.setAttribute('rotation', '0 0 180');
+                bwd.setAttribute('locobtn', 'clickAction:backDashButtonAction');
+                locomotionNav.appendChild(bwd);
+                var lt = document.createElement("a-entity");
+                lt.setAttribute('infocus', 'true');
+                lt.setAttribute('position', '-0.5 0 0');
+                lt.setAttribute('rotation', '0 0 90');
+                lt.setAttribute('locobtn', 'clickAction:leftTurnButtonAction');
+                locomotionNav.appendChild(lt);
+            }
 
-
+            if(data.locofirst){
+                if(data.interaction){
+                    this.interactionAxes.setAttribute('visible', 'false');
+                }
+                if(data.locomotion){
+                    this.locomotionNav.setAttribute('visible', 'true');
+                }
+            }else{
+                if(data.interaction){
+                    this.interactionAxes.setAttribute('visible', 'true');
+                }
+                if(data.locomotion){
+                    this.locomotionNav.setAttribute('visible', 'false');
+                }
+            }
 
         }else{
             console.log("Please add a camera to your scene.");
@@ -64,13 +108,29 @@ AFRAME.registerComponent('binary-controls', {
         //document.querySelector('a-scene').emit('click');
     }, 
     selecterHandler: function(evt) {
+
     }, 
     switcherHandler: function(evt) {
+        // document.querySelector('[binary-controls]').setAttribute('binary-controls','locofirst','false')
+    },
+    update: function() {
+        if(this.data.locofirst){
+            if(this.data.interaction){
+                this.interactionAxes.setAttribute('visible', 'false');
+            }
+            if(this.data.locomotion){
+                this.locomotionNav.setAttribute('visible', 'true');
+            }
+        }else{
+            if(this.data.interaction){
+                this.interactionAxes.setAttribute('visible', 'true');
+            }
+            if(this.data.locomotion){
+                this.locomotionNav.setAttribute('visible', 'false');
+            }
+        }        
     }
-
-
 });
-
 
 // Loco button component
 AFRAME.registerComponent('locobtn', {
@@ -104,12 +164,6 @@ AFRAME.registerComponent('locobtn', {
         hoverEntity.setAttribute('position', '0 0 0.01');
         el.appendChild(hoverEntity);
 
-        el.addEventListener('mouseenter', function() {
-            console.log("hovering");
-        });
-        el.addEventListener('mouseleave', function() {
-
-        });
         el.addEventListener(data.on, function() {
             var clickActionFunctionName = data.clickAction;
             console.log("in button, clickActionFunctionName: "+clickActionFunctionName);
@@ -118,6 +172,65 @@ AFRAME.registerComponent('locobtn', {
         });
     }
 });
+
+
+// Component to change to a sequential color on click.
+AFRAME.registerComponent('infocus', {
+    schema: { 
+        type:'boolean', 
+        default:false
+    },
+    init: function () {
+        var data = this.data;
+        var el = this.el;
+        var rEntity = document.createElement("a-entity");
+        rEntity.setAttribute('geometry', `primitive:ring; radiusInner:0.16; radiusOuter:0.17`);
+        rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
+        rEntity.setAttribute('position', '0 0 0');
+        el.appendChild(rEntity);
+        this.rEntity = rEntity;
+    },
+    update: function () {
+        if(this.data){
+            this.rEntity.setAttribute('material','opacity','1');
+        }else{
+            this.rEntity.setAttribute('material','opacity','0');
+        }
+    }
+});
+
+AFRAME.registerComponent('dash-controls', {
+    schema: {
+
+    },
+    init: function () {
+        this.dVelocity = new THREE.Vector3();
+        this.direction = 0;
+
+        window.addEventListener('dashfwd', this.onDashFwd.bind(this), false);
+        window.addEventListener('dashbwd', this.onDashBwd.bind(this), false);
+    },
+    isVelocityActive: function () {
+        return true;
+    },
+    getVelocityDelta: function () {
+        this.dVelocity.z = this.direction;
+        return this.dVelocity.clone();        
+    },
+    onDashFwd: function (event) {
+        this.direction = -0.125;
+        setTimeout(this.stopDash.bind(this), 500);
+    },
+    onDashBwd: function (event) {
+        this.direction = 0.125;
+        setTimeout(this.stopDash.bind(this), 500);
+    },
+    stopDash: function(){
+        this.direction = 0;
+    }
+
+});
+
 
 // Component to change to a sequential color on click.
 AFRAME.registerComponent('switch-furniture', {
@@ -131,43 +244,3 @@ AFRAME.registerComponent('switch-furniture', {
     });
   }
 });
-
-
-
-// Component to change to a sequential color on click.
-AFRAME.registerComponent('infocus', {
-    schema: { 
-        default:"false"
-    },
-    init: function () {
-        var data = this.data;
-        var el = this.el;
-        var rEntity = document.createElement("a-entity");
-        rEntity.setAttribute('geometry', `primitive:ring; radiusInner:0.16; radiusOuter:0.17`);
-        rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
-        rEntity.setAttribute('position', '0 0 0');
-        el.appendChild(rEntity);
-        this.rEntity = rEntity;
-
-        if(data){
-            rEntity.setAttribute('material', `shader: flat; opacity:1; color:#f00;`);
-        }else{
-            rEntity.setAttribute('material', `shader: flat; opacity:0; color:#f00;`);
-        }
-
-    },
-    update: function () {
-        if(this.data){
-            this.rEntity.setAttribute('material','opacity','1');
-        }else{
-            this.rEntity.setAttribute('material','opacity','0');
-        }
-    }
-});
-
-
-// entity.addState('selected');
-// entity.is('selected');  // >> true
-
-// entity.removeState('selected');
-// entity.is('selected');  // >> false
