@@ -39,8 +39,4 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-assets/
-build/
 package-lock.json
-assets/bunker_navmesh.gltf
-assets/bunker_textured.glb

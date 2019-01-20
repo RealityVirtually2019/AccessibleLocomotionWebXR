@@ -230,6 +230,40 @@ AFRAME.registerComponent('dash-controls', {
 
 });
 
+AFRAME.registerComponent('trackpadclick-controls', {
+    schema: {
+    },
+    init: function() {
+      console.log('testing trackpad!!!!');
+
+      //var GAMEPAD_ID_PREFIX = 'HTC Vive Focus';
+      //var GAMEPAD_ID_PREFIX = 'Gear VR|GearVR|Oculus Go';
+
+      let Context_AF = this;
+      Context_AF.prevTime = null;
+      Context_AF.timePassed = null;
+      Context_AF.planeEl = document.querySelector('#plane');
+
+      Context_AF.el.addEventListener( 'touchstart', function (event) {
+        console.log("touchstart");
+        Context_AF.planeEl.setAttribute('material', {color:'#00FF00'});
+
+        Context_AF.prevTime = new Date();
+      });
+
+      Context_AF.el.addEventListener( 'touchend', function (event) {
+        console.log("touchend");
+        Context_AF.planeEl.setAttribute('material', {color:'#FF0000'});
+
+        const currTime = new Date();
+        Context_AF.timePassed = currTime - Context_AF.prevTime;
+        console.log("timne passed: " + Context_AF.timePassed);
+      });
+    },
+    });
+
+
+
 AFRAME.registerComponent('lookatlabel', {
   init: function () {
     this.vector = new THREE.Vector3();
@@ -278,18 +312,5 @@ AFRAME.registerComponent('label-furniture', {
       el.setAttribute('material', 'opacity', '0');
       label.setAttribute('scale', '0.0001 0.0001 0.0001');
     });      
-  }
-});
-
-// Component to change to a sequential color on click.
-AFRAME.registerComponent('switch-furniture', {
-  init: function () {
-    var lastIndex = -1;
-    var COLORS = ['red', 'green', 'blue'];
-    this.el.addEventListener('click', function (evt) {
-      lastIndex = (lastIndex + 1) % COLORS.length;
-      this.setAttribute('material', 'color', COLORS[lastIndex]);
-      console.log('I was clicked at: ', evt.detail.intersection.point);
-    });
   }
 });

@@ -83,9 +83,9 @@ node.addEventListener('touchcancel', cancel);
 //dom ready
 (function () {
 
-var sceneEl = document.querySelector('a-scene');
-sceneEl.addEventListener('trackpaddown', click);
-sceneEl.addEventListener('trackpadup', cancel);
+// var sceneEl = document.querySelector('a-scene');
+// sceneEl.addEventListener('trackpaddown', click);
+// sceneEl.addEventListener('trackpadup', cancel);
 
 
   var yRot = 0;
