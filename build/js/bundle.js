@@ -55,7 +55,7 @@ AFRAME.registerComponent('binary-controls', {
         this.interactionSwing = interactionSwing;
         var interactionCursor = document.createElement("a-entity");
         interactionCursor.setAttribute('cursor', '');
-        interactionCursor.setAttribute('raycaster', 'far: 20; interval: 1000;');
+        interactionCursor.setAttribute('raycaster', 'far: 20; interval: 1000; objects:.clickable');
         interactionCursor.setAttribute('geometry', 'primitive: ring; radiusInner: 0.02; radiusOuter: 0.03');
         interactionCursor.setAttribute('position', '0 0 -1.05');
         interactionCursor.setAttribute('material', 'color: black; shader: flat');
@@ -240,34 +240,6 @@ AFRAME.registerComponent('dash-controls', {
     this.direction = 0;
   }
 });
-AFRAME.registerComponent('trackpad-listener', {
-  schema: {},
-  init: function init() {
-    console.log('testing trackpad!!!!'); //var GAMEPAD_ID_PREFIX = 'HTC Vive Focus';
-    //var GAMEPAD_ID_PREFIX = 'Gear VR|GearVR|Oculus Go';
-
-    var Context_AF = this;
-    Context_AF.prevTime = null;
-    Context_AF.timePassed = null;
-    Context_AF.planeEl = document.querySelector('#plane');
-    Context_AF.el.addEventListener('touchstart', function (event) {
-      console.log("touchstart");
-      Context_AF.planeEl.setAttribute('material', {
-        color: '#00FF00'
-      });
-      Context_AF.prevTime = new Date();
-    });
-    Context_AF.el.addEventListener('touchend', function (event) {
-      console.log("touchend");
-      Context_AF.planeEl.setAttribute('material', {
-        color: '#FF0000'
-      });
-      var currTime = new Date();
-      Context_AF.timePassed = currTime - Context_AF.prevTime;
-      console.log("timne passed: " + Context_AF.timePassed);
-    });
-  }
-});
 AFRAME.registerComponent('lookatlabel', {
   init: function init() {
     this.vector = new THREE.Vector3();
@@ -299,8 +271,8 @@ AFRAME.registerComponent('label-furniture', {
     var el = this.el;
     el.setAttribute('material', "shader: flat; opacity:0; color:blue;");
     var label = document.createElement("a-entity");
-    label.setAttribute('geometry', 'primitive:plane; width:1; height:0.4;');
-    label.setAttribute('text', "value:".concat(this.data, "; align:center; font:https://cdn.aframe.io/fonts/Aileron-Semibold.fnt; color:#fbfbfb;width:0.5;wrapCount:10;"));
+    label.setAttribute('geometry', 'primitive:plane; width:0.8; height:0.4;');
+    label.setAttribute('text', "value:".concat(this.data, "; align:center; font:https://cdn.aframe.io/fonts/Aileron-Semibold.fnt; color:#fbfbfb;width:0.65;wrapCount:15;"));
     label.setAttribute('material', "color:#111; opacity:1;");
     label.setAttribute('position', '0 0.8 0');
     label.setAttribute('scale', '0.0001 0.0001 0.0001');
@@ -314,6 +286,9 @@ AFRAME.registerComponent('label-furniture', {
     el.addEventListener('mouseleave', function () {
       el.setAttribute('material', 'opacity', '0');
       label.setAttribute('scale', '0.0001 0.0001 0.0001');
+    });
+    el.addEventListener('click', function () {
+      console.log('clicked');
     });
   }
 });
@@ -359,6 +334,8 @@ var cancel = function cancel() {
         console.log('long click = triggerB');
         triggerB();
         longPress = true;
+      } else {
+        triggerA();
       }
   }
 };

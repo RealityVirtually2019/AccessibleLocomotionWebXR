@@ -20,7 +20,7 @@
   
   <body>
     
-    <a href="#" id="trigger" style="position:absolute; top:0; left:0; z-index:10;">trigger</a>
+    <a href="#" id="trigger" style="position:absolute; top:0; left:0; z-index:10;">binary test</a>
     
     <!-- stats="false" -->
     <a-scene background="color: #ECECEC" renderer="gammaOutput: true; antialias: true;" light="defaultLightsEnabled: true;">
@@ -46,7 +46,31 @@
       </a-entity>
       
 
-      <a-entity geometry="primitive:box;height:1;depth:1.1;width:1.9" position="1.86577 0.5 -1.02765" label-furniture="name"></a-entity>
+      <a-entity geometry="primitive:box;height:1;depth:1.1;width:1.9"   
+                position="1.86577 0.5 -1.02765" class="clickable"
+                label-furniture="Patersons Dinning Table - $298.99"
+                ></a-entity>
+
+      <a-entity geometry="primitive:box;height:1;depth:1.2;width:2.2"   
+                position="1.95 0.5 0.65" class="clickable"
+                label-furniture="Langley Street Martinique Tufted Sofa - $829.99"
+                ></a-entity>
+
+
+      <a-entity geometry="primitive:box;height:1;depth:1.9;width:1.1"   
+                position="-0.5 0.4 -11.4" class="clickable"
+                label-furniture="Patersons Dinning Table - $298.99"
+                ></a-entity>                
+
+      <a-entity geometry="primitive:box;height:0.8;depth:0.8;width:0.8" 
+                position="0.375 0.4 -11.5" class="clickable"
+                label-furniture="Royal Palm Beach Chair - $101.99"
+                ></a-entity>
+
+      <a-entity geometry="primitive:box;height:0.6;depth:0.65;width:0.75" 
+                position="-0.55 0.3 -10" class="clickable"
+                label-furniture="Charlton End Table - $125.99"
+                ></a-entity>
 
       <!-- room and Nav-mesh -->
 

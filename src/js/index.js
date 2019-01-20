@@ -43,6 +43,8 @@ const cancel = () => {
       console.log('long click = triggerB');
       triggerB();
       longPress = true;
+    } else {
+      triggerA();
     }
   }
 };
