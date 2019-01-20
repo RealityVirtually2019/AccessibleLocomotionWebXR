@@ -15,6 +15,5 @@ export default function server() {
     files: [`${paths.dest}**/*.*`],
     open: false,
     notify: false,
-//    port: 8080
   });
 }
