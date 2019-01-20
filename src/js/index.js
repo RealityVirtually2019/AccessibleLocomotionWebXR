@@ -57,6 +57,7 @@ const click = () => {
 
 const start = e => {
   console.log(e);
+  alert(e);
   if (e.type === 'click' && e.button !== 0) {
     return;
   }
@@ -79,9 +80,13 @@ node.addEventListener('touchleave', cancel);
 node.addEventListener('touchcancel', cancel);
 
 
-
 //dom ready
 (function () {
+
+var sceneEl = document.querySelector('a-scene');
+sceneEl.addEventListener('trackpaddown', click);
+sceneEl.addEventListener('trackpadup', cancel);
+
 
   var yRot = 0;
   var rig = document.querySelector('[binary-controls]');
