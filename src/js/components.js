@@ -46,32 +46,37 @@ AFRAME.registerComponent('binary-controls', {
             // locomotion mode
             if(data.locomotion){
                 var locomotionNav = document.createElement("a-entity");
-                locomotionNav.setAttribute('position', '0 0 -2');
+                locomotionNav.setAttribute('position', '0 -0.25 -0.65');
+                locomotionNav.setAttribute('rotation', '-30 0 0');
                 this.cameraEl.appendChild(locomotionNav);
                 this.locomotionNav = locomotionNav;
 
                 var fwd = document.createElement("a-entity");
                 fwd.setAttribute('infocus', 'true');
-                fwd.setAttribute('position', '0 0.5 0');
+                fwd.setAttribute('position', '0 0.1 0');
                 fwd.setAttribute('rotation', '0 0 0');
+                fwd.setAttribute('scale', '0.3 0.3 0.3');
                 fwd.setAttribute('locobtn', 'clickAction:fwdDashButtonAction');
                 locomotionNav.appendChild(fwd);
                 var rt = document.createElement("a-entity");
                 rt.setAttribute('infocus', 'true');
-                rt.setAttribute('position', '0.5 0 0');
+                rt.setAttribute('position', '0.1 0 0');
                 rt.setAttribute('rotation', '0 0 -90');
+                rt.setAttribute('scale', '0.3 0.3 0.3');
                 rt.setAttribute('locobtn', 'clickAction:rightTurnButtonAction');
                 locomotionNav.appendChild(rt);
                 var bwd = document.createElement("a-entity");
                 bwd.setAttribute('infocus', 'true');
-                bwd.setAttribute('position', '0 -0.5 0');
+                bwd.setAttribute('position', '0 -0.1 0');
                 bwd.setAttribute('rotation', '0 0 180');
+                bwd.setAttribute('scale', '0.3 0.3 0.3');
                 bwd.setAttribute('locobtn', 'clickAction:backDashButtonAction');
                 locomotionNav.appendChild(bwd);
                 var lt = document.createElement("a-entity");
                 lt.setAttribute('infocus', 'true');
-                lt.setAttribute('position', '-0.5 0 0');
+                lt.setAttribute('position', '-0.1 0 0');
                 lt.setAttribute('rotation', '0 0 90');
+                lt.setAttribute('scale', '0.3 0.3 0.3');
                 lt.setAttribute('locobtn', 'clickAction:leftTurnButtonAction');
                 locomotionNav.appendChild(lt);
             }

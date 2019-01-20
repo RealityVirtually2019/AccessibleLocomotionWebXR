@@ -28,17 +28,19 @@
       <!-- Assets --> 
       <a-assets timeout="30000"> 
 
-        <a-asset-item id="room" src="assets/Apt-Walls.gltf" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="floor" src="assets/Apt-Floor.gltf" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="navmesh" src="assets/NavMesh.gltf"></a-asset-item>         
+        <a-asset-item id="room" src="assets/apt/scene.gltf" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="furniture" src="assets/furniture/scene.gltf" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="navmesh" src="assets/NavMesh.gltf"></a-asset-item><a-asset-item id="chair" src="assets/wheelchair/scene.gltf"></a-asset-item>         
       </a-assets>
       
 
       <!-- Camera Rig -->
-      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2; controls:dash; " position="0 0 0" binary-controls="locomotion:true;interaction:true;locofirst:false;" >
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; speed: 0.2; controls:dash; " position="0 0 0" binary-controls="locomotion:true;interaction:true;locofirst:true;" >
       
         <!-- Camera -->
         <a-entity camera="far: 100;" look-controls position="0 1.2 0"></a-entity>
+        <a-entity gltf-model="#room" position="0 0 0" ></a-entity>
+
  
       </a-entity>
       
@@ -50,9 +52,9 @@
 
       <!-- room and Nav-mesh -->
 
-      <a-entity gltf-model="#room" position="4.5 0 -6.5"></a-entity>
-      <a-entity gltf-model="#floor" position="4.5 0 -6.5"></a-entity>
-      <a-entity gltf-model="#navmesh" nav-mesh visible="false" position="4.5 0 -6.5">
+      <a-entity gltf-model="#room" position="6.5 0 -6.5" ></a-entity>
+      <a-entity gltf-model="#furniture" position="6.5 0 -6.5" ></a-entity>
+      <a-entity gltf-model="#navmesh" nav-mesh visible="false" position="6.5 0 -6.5" >
       
     </a-scene>
     <script src="js/bundle.js"></script>
